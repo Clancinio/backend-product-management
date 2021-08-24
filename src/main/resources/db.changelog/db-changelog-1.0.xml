@@ -35,18 +35,20 @@
     </changeSet>
     <changeSet id="3" author="clancinio" failOnError="true">
         <sql>
-            INSERT INTO product (name, price, description) VALUES ("Product 1", 19.99, "Test description for the
-            product.");
-            INSERT INTO product (name, price, description) VALUES ("Product 2", 59.99, "Test description for the
-            product.");
-            INSERT INTO product (name, price, description) VALUES ("Product 3", 26.00, "Test description for the
-            product.");
-            INSERT INTO product (name, price, description) VALUES ("Product 4", 5.00, "Test description for the
-            product.");
-            INSERT INTO product (name, price, description) VALUES ("Product 5", 4.99.99, "Test description for the
-            product.");
-            INSERT INTO product (name, price, description) VALUES ("Product 6", 129.99, "Test description for the
-            product.");
+            INSERT INTO
+            product (name, price, description)
+            VALUES(
+            "Product 1",
+            19.99,
+            "Test description for the
+            product."
+            ),
+            (
+            "Product 2",
+            59.99,
+            "Test description for the
+            product."
+            );
         </sql>
         <rollback>
             TRUNCATE TABLE product;
@@ -59,9 +61,11 @@
             product_id BIGINT NOT NULL,
             user_id BIGINT NOT NULL,
             purchase_date DATETIME,
-            CONSTRAINT fk_trans_product FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE OM UPDATE
-            CASCADE,
-            CONSTRAINT fk_trans_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE OM UPDATE CASCADE,
+            CONSTRAINT PK_id PRIMARY KEY (id),
+            CONSTRAINT fk_trans_product FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE ON
+            UPDATE CASCADE,
+            CONSTRAINT fk_trans_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON
+            UPDATE CASCADE
             );
         </sql>
         <rollback>
