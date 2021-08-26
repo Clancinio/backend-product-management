@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_FIND_ALL_USERS_EXCEPTION_MESSAGE;
-import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_FIND_BY_USERNAME_EXCEPTION_MESSAGE;
+import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.*;
 
 @Log4j2
 @Service
@@ -32,21 +31,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        final UserEntity userEntity = objectMapper.convertValue(user, UserEntity.class);
-        userRepository.save(userEntity);
-        return objectMapper.convertValue(userEntity, User.class);
+        try {
+            final UserEntity userEntity = objectMapper.convertValue(user, UserEntity.class);
+            userRepository.save(userEntity);
+            return objectMapper.convertValue(userEntity, User.class);
+        } catch (final Exception exception) {
+            log.error(exception);
+            throw new DBException(SERVICE_SAVE_USER_EXCEPTION_MESSAGE, exception);
+        }
     }
 
     @Override
     public User updateUser(User user) {
-        final UserEntity userEntity = objectMapper.convertValue(user, UserEntity.class);
-        userRepository.save(userEntity);
-        return objectMapper.convertValue(userEntity, User.class);
+        try {
+            final UserEntity userEntity = objectMapper.convertValue(user, UserEntity.class);
+            userRepository.save(userEntity);
+            return objectMapper.convertValue(userEntity, User.class);
+        } catch (final Exception exception) {
+            log.error(exception);
+            throw new DBException(SERVICE_UPDATE_USER_EXCEPTION_MESSAGE, exception);
+        }
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        }
+        catch (final Exception exception) {
+            log.error(exception);
+            throw new DBException(SERVICE_DELETE_USER_EXCEPTION_MESSAGE, exception);
+        }
     }
 
     public User findByUsername(String userName) {
@@ -74,6 +89,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public Long numberOfUsers() {
-        return userRepository.count();
+            return userRepository.count();
     }
 }
