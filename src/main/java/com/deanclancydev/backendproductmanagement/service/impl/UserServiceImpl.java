@@ -3,10 +3,12 @@ package com.deanclancydev.backendproductmanagement.service.impl;
 
 import com.deanclancydev.backendproductmanagement.dto.User;
 import com.deanclancydev.backendproductmanagement.entity.UserEntity;
+import com.deanclancydev.backendproductmanagement.exceptions.DBException;
 import com.deanclancydev.backendproductmanagement.repository.UserRepository;
 import com.deanclancydev.backendproductmanagement.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_FIND_ALL_USERS_EXCEPTION_MESSAGE;
+import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_FIND_BY_USERNAME_EXCEPTION_MESSAGE;
+
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -39,26 +45,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id){
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    public User findByUsername(String userName){
-        final Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
-        if(userEntity.isPresent()){
-            throw new RuntimeException("User with the Username " + userName + " does not exist.");
-        } else {
-            return objectMapper.convertValue(userEntity, User.class);
+    public User findByUsername(String userName) {
+        try {
+            final Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
+            if (userEntity.isPresent()) {
+                return objectMapper.convertValue(userEntity, User.class);
+            } else {
+                throw new DBException(String.format(SERVICE_FIND_BY_USERNAME_EXCEPTION_MESSAGE, userName));
+            }
+        } catch (final Exception exception) {
+            log.error(exception);
+            throw exception;
         }
     }
 
-    public List<User> findAllUsers(){
-        List<UserEntity> userEntities = userRepository.findAll();
-        return userEntities.stream().map(userEntity -> objectMapper.convertValue(userEntity, User.class))
-                .collect(Collectors.toList());
+    public List<User> findAllUsers() {
+        try {
+            return userRepository.findAll().stream().map(userEntity -> objectMapper.convertValue(userEntity, User.class))
+                    .collect(Collectors.toList());
+        } catch (final Exception exception) {
+            log.error(exception);
+            throw new DBException(SERVICE_FIND_ALL_USERS_EXCEPTION_MESSAGE, exception);
+        }
     }
 
-    public Long numberOfUsers(){
+    public Long numberOfUsers() {
         return userRepository.count();
     }
 }
