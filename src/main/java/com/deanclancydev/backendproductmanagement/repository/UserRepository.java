@@ -1,14 +1,15 @@
 package com.deanclancydev.backendproductmanagement.repository;
 
-import com.deanclancydev.backendproductmanagement.entity.User;
+import com.deanclancydev.backendproductmanagement.dto.User;
+import com.deanclancydev.backendproductmanagement.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     // findBy -> Username
-    Optional<User> findByUserName(String userName);
+    Optional<UserEntity> findByUserName(String userName);
 }
