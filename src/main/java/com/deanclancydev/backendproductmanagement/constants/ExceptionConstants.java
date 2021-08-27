@@ -22,5 +22,8 @@ public class ExceptionConstants {
 
     public static final String SERVICE_FIND_ALL_PRODUCTS_EXCEPTION_MESSAGE = "ailed to retrieve users";
 
+    public static final String SERVICE_SAVE_TRANSACTION_EXCEPTION_MESSAGE
+            = "ailed to create transaction";
+
 }
 
