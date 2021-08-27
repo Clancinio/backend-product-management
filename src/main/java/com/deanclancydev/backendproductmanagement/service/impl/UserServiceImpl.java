@@ -57,13 +57,11 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
-        }
-        catch (final Exception exception) {
+        } catch (final Exception exception) {
             log.error(exception);
             throw new DBException(SERVICE_DELETE_USER_EXCEPTION_MESSAGE, exception);
         }
     }
-
 
     @Override
     public User findByUsername(String userName) {
@@ -93,6 +91,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long numberOfUsers() {
-            return userRepository.count();
+        return userRepository.count();
     }
 }
