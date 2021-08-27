@@ -64,6 +64,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    @Override
     public User findByUsername(String userName) {
         try {
             final Optional<UserEntity> userEntity = userRepository.findByUserName(userName);
@@ -78,6 +80,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public List<User> findAllUsers() {
         try {
             return userRepository.findAll().stream().map(userEntity -> objectMapper.convertValue(userEntity, User.class))
@@ -88,6 +91,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public Long numberOfUsers() {
             return userRepository.count();
     }
