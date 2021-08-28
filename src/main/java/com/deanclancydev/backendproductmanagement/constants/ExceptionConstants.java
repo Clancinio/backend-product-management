@@ -2,6 +2,8 @@ package com.deanclancydev.backendproductmanagement.constants;
 
 public class ExceptionConstants {
 
+    public static final String HANDLE_ALL_EXCEPTIONS_MESSAGE = "Oops! Something went wrong";
+
     // User Service
     public static final String SERVICE_FIND_ALL_USERS_EXCEPTION_MESSAGE = "Failed to retrieve users";
 
@@ -22,8 +24,11 @@ public class ExceptionConstants {
 
     public static final String SERVICE_FIND_ALL_PRODUCTS_EXCEPTION_MESSAGE = "ailed to retrieve users";
 
+    // Transaction Service
     public static final String SERVICE_SAVE_TRANSACTION_EXCEPTION_MESSAGE
-            = "ailed to create transaction";
+            = "Failed to create transaction";
+
+    public static final String SERVICE_FIND_ALL_TRANSACTIONS_EXCEPTION_MESSAGE = "Failed to retrieve transactions";
 
 }
 
