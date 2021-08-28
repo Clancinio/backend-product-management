@@ -11,7 +11,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_FIND_ALL_TRANSACTIONS_EXCEPTION_MESSAGE;
 import static com.deanclancydev.backendproductmanagement.constants.ExceptionConstants.SERVICE_SAVE_TRANSACTION_EXCEPTION_MESSAGE;
 
 @Log4j2
@@ -33,6 +36,17 @@ public class TransactionServiceImpl implements TransactionService {
         } catch (final Exception exception) {
             log.error(exception);
             throw new DBException(SERVICE_SAVE_TRANSACTION_EXCEPTION_MESSAGE, exception);
+        }
+    }
+
+    @Override
+    public List<Transaction> findAllTransactions() {
+        try {
+            return transactionRepository.findAll().stream().map(transactionEntity -> objectMapper.convertValue(transactionEntity, Transaction.class))
+                    .collect(Collectors.toList());
+        } catch (final Exception exception) {
+            log.error(exception);
+            throw new DBException(SERVICE_FIND_ALL_TRANSACTIONS_EXCEPTION_MESSAGE, exception);
         }
     }
 
