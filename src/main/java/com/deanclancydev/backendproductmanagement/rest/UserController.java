@@ -6,12 +6,11 @@ import com.deanclancydev.backendproductmanagement.dto.User;
 import com.deanclancydev.backendproductmanagement.service.ProductService;
 import com.deanclancydev.backendproductmanagement.service.TransactionService;
 import com.deanclancydev.backendproductmanagement.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,12 +26,14 @@ public class UserController {
 
     private final TransactionService transactionService;
 
-    @RequestMapping("/registration")
+
+    @PostMapping("/registration")
+    @Operation(summary = "Register a user")
     public ResponseEntity<User> register(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> getUser(Principal principal) {
         if (principal == null || principal.getName() == null) {
             return ResponseEntity.ok(principal);
@@ -40,12 +41,12 @@ public class UserController {
         return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
     }
 
-    @RequestMapping("/purchase")
+    @PostMapping("/purchase")
     public ResponseEntity<Transaction> purchaseProduct(@RequestBody Transaction transaction) {
         return new ResponseEntity<>(transactionService.saveTransaction(transaction), HttpStatus.CREATED);
     }
 
-    @RequestMapping("/products")
+    @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
