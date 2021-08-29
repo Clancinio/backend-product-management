@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Value;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
+
 @Value
 @Builder(builderClassName = "Builder")
 @JsonDeserialize(builder = Transaction.Builder.class)
@@ -17,7 +19,9 @@ public class Transaction {
 
     ProductEntity product;
 
-    UserEntity userEntity;
+    UserEntity user;
+
+    LocalDateTime purchaseDate;
 
     @JsonPOJOBuilder(withPrefix = StringUtils.EMPTY)
     public static class Builder {

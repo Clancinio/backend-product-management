@@ -20,7 +20,7 @@ public class TransactionEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @Column(name = "purchase_date")
     private LocalDateTime purchaseDate;

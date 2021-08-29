@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction saveTransaction(Transaction transaction) {
         try {
-            final TransactionEntity transactionEntity = objectMapper.convertValue(transaction, TransactionEntity.class);
+            Transaction trans = Transaction.builder()
+                    .purchaseDate(LocalDateTime.now())
+                    .product(transaction.getProduct())
+                    .user(transaction.getUser())
+                    .build();
+            final TransactionEntity transactionEntity = objectMapper.convertValue(trans, TransactionEntity.class);
             transactionRepository.save(transactionEntity);
             return transaction;
         } catch (final Exception exception) {

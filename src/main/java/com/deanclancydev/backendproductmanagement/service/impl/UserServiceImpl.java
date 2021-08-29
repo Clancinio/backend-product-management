@@ -9,7 +9,6 @@ import com.deanclancydev.backendproductmanagement.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,14 +26,18 @@ public class UserServiceImpl implements UserService {
 
     private final ObjectMapper objectMapper;
 
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     @Override
     public User saveUser(User user) {
         try {
             final UserEntity userEntity = objectMapper.convertValue(user, UserEntity.class);
-            userRepository.save(userEntity);
-            return objectMapper.convertValue(userEntity, User.class);
+            if (userRepository.findByUserName(user.getUserName()).isPresent()) {
+                throw new DBException("User with the user name " + user.getUserName() + " already exists");
+            } else {
+                userRepository.save(userEntity);
+                return objectMapper.convertValue(userEntity, User.class);
+            }
         } catch (final Exception exception) {
             log.error(exception);
             throw new DBException(SERVICE_SAVE_USER_EXCEPTION_MESSAGE, exception);
