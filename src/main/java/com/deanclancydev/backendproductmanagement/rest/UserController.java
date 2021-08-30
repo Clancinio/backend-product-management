@@ -25,8 +25,7 @@ public class UserController {
     private final ProductService productService;
 
     private final TransactionService transactionService;
-
-
+    
     @PostMapping("/registration")
     @Operation(summary = "Register a user")
     public ResponseEntity<User> register(@RequestBody User user) {

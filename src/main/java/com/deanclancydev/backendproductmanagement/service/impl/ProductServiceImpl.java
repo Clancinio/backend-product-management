@@ -11,7 +11,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     final private ObjectMapper objectMapper;
 
     @Override
-    public Product saveProduct(final Product product){
+    public Product saveProduct(final Product product) {
         try {
             final ProductEntity productEntity = objectMapper.convertValue(product, ProductEntity.class);
             productRepository.save(productEntity);
@@ -55,8 +54,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         try {
             productRepository.deleteById(id);
-        }
-        catch (final Exception exception) {
+        } catch (final Exception exception) {
             log.error(exception);
             throw new DBException(SERVICE_DELETE_PRODUCT_EXCEPTION_MESSAGE, exception);
         }
@@ -74,7 +72,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long numberOfProducts() {
-        return productRepository.count();
+    public String numberOfProducts() {
+        long count = productRepository.count();
+        return Long.toString(count);
     }
 }

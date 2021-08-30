@@ -9,5 +9,5 @@ public interface TransactionService {
 
     List<Transaction> findAllTransactions();
 
-    Long numberOfTransactions();
+    String numberOfTransactions();
 }

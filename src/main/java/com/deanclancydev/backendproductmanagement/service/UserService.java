@@ -16,5 +16,5 @@ public interface UserService {
 
     List<User> findAllUsers();
 
-    Long numberOfUsers();
+    String numberOfUsers();
 }

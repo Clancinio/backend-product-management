@@ -57,7 +57,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Long numberOfTransactions() {
-        return transactionRepository.count();
+    public String numberOfTransactions() {
+        long count = transactionRepository.count();
+        return Long.toString(count);
     }
 }
