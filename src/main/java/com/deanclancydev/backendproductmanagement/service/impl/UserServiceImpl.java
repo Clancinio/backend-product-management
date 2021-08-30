@@ -93,7 +93,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long numberOfUsers() {
-        return userRepository.count();
+    public String numberOfUsers() {
+        long count = userRepository.count();
+        return Long.toString(count);
     }
 }
