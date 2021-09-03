@@ -8,5 +8,19 @@ spring:
     hibernate.ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
+
   liquibase:
     change-log: classpath:db.changelog/dbchangelog.xml
+
+security:
+  jwt:
+    token:
+      secret-key: secret-key
+      expire-length: 86400000 # 1 Day
+      prefix: Bearer
+      header: Authorization
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie

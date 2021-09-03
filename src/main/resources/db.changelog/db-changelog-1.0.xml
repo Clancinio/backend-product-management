@@ -19,58 +19,5 @@
             DROP TABLE user;
         </rollback>
     </changeSet>
-    <changeSet id="2" author="clancinio" failOnError="true">
-        <sql>
-            CREATE TABLE product (
-            id BIGINT NOT NULL AUTO_INCREMENT,
-            name VARCHAR(255),
-            description VARCHAR(255) NOT NULL,
-            price DOUBLE,
-            CONSTRAINT PK_id PRIMARY KEY (id)
-            );
-        </sql>
-        <rollback>
-            DROP TABLE product;
-        </rollback>
-    </changeSet>
-    <changeSet id="3" author="clancinio" failOnError="true">
-        <sql>
-            INSERT INTO
-            product (name, price, description)
-            VALUES(
-            "Product 1",
-            19.99,
-            "Test description for the
-            product."
-            ),
-            (
-            "Product 2",
-            59.99,
-            "Test description for the
-            product."
-            );
-        </sql>
-        <rollback>
-            TRUNCATE TABLE product;
-        </rollback>
-    </changeSet>
-    <changeSet id="4" author="clancinio" failOnError="true">
-        <sql>
-            CREATE TABLE transaction (
-            id BIGINT NOT NULL AUTO_INCREMENT,
-            product_id BIGINT NOT NULL,
-            user_id BIGINT NOT NULL,
-            purchase_date DATETIME,
-            CONSTRAINT PK_id PRIMARY KEY (id),
-            CONSTRAINT fk_trans_product FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE ON
-            UPDATE CASCADE,
-            CONSTRAINT fk_trans_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON
-            UPDATE CASCADE
-            );
-        </sql>
-        <rollback>
-            DROP TABLE transaction;
-        </rollback>
-    </changeSet>
 </databaseChangeLog>
 
