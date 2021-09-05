@@ -7,7 +7,7 @@ public class SecurityConstants {
 
     public static final long EXPIRATION_TIME = 432_000_000; // 5 Days
 
-    public static final String TOKEN_HEADER = "Bearer ";
+    public static final String TOKEN_PREFIX = "Bearer ";
 
     public static final String JWT_TOKEN_HEADER = "Jwt-Token ";
 
