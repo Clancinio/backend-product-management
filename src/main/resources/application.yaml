@@ -15,7 +15,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: secret-key
+      secret-key: HEHwyDSISxEAmTjZUQtmHCo3IftFWKdLck0xoJ0ZA3Pk9j0E481j3UDJ6Bn555p
       expire-length: 86400000 # 1 Day
       prefix: Bearer
       header: Authorization

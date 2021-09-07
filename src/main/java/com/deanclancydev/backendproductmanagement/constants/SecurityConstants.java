@@ -13,11 +13,11 @@ public class SecurityConstants {
 
     public static final String TOKEN_CANNOT_BE_VERIFIED = "Token cannot be verified !";
 
-    public static final String TOKEN_ISSUER = "Clancinio, LLC!";
+    public static final String TOKEN_ISSUER = "Management System, LLC!";
 
-    public static final String CLANCINIO_ADMINISTRATION = "Clancinio";
+    public static final String ADMINISTRATION = "Management System";
 
-    public static final String AUTHORITIES = "Authorities";
+    public static final String AUTHORITIES = "authorities";
 
     public static final String FORBIDDEN_MESSAGE = "You need to log in to access this page!";
 
