@@ -89,7 +89,8 @@ public class JwtTokenProvider {
         List<String> authorities = new ArrayList<>();
         userPrincipal.getAuthorities()
                 .stream()
-                .map(grantedAuthority -> authorities.add(grantedAuthority.getAuthority()));
+                .map(grantedAuthority -> authorities.add(grantedAuthority.getAuthority()))
+                .collect(Collectors.toList());
         return authorities.toArray(new String[0]);
     }
 
